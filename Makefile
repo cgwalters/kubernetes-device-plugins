@@ -17,7 +17,7 @@ all: build
 build: format $(patsubst %, build-%, $(PLUGINS))
 
 build-%:
-	cd cmd/$(subst -,/,$*) && go fmt && go vet && go install -v
+	cd cmd/$(subst -,/,$*) && go fmt
 
 format:
 	go fmt ./pkg/...

@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 
+	"github.com/cgwalters/kubernetes-device-plugins/pkg/kvm"
 	"github.com/kubevirt/device-plugin-manager/pkg/dpm"
-	"github.com/kubevirt/kubernetes-device-plugins/pkg/kvm"
 )
 
 func main() {

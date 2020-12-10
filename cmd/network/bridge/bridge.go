@@ -4,9 +4,9 @@ import (
 	"flag"
 	"os"
 
+	"github.com/cgwalters/kubernetes-device-plugins/pkg/network/bridge"
 	"github.com/golang/glog"
 	"github.com/kubevirt/device-plugin-manager/pkg/dpm"
-	"github.com/kubevirt/kubernetes-device-plugins/pkg/network/bridge"
 )
 
 func main() {
