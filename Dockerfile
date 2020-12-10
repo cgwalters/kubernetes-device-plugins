@@ -4,5 +4,5 @@ COPY . .
 RUN make
 
 FROM registry.svc.ci.openshift.org/openshift/origin-v4.0:base
-COPY --from=builder /go/src/github.com/cgwalters/kvm-device-plugin/cmd/kvm /usr/bin/device-plugin-kvm
+COPY --from=builder /go/src/github.com/cgwalters/kvm-device-plugin/cmd/kvm/kvm /usr/bin/device-plugin-kvm
 CMD ["/usr/bin/device-plugin-kvm"]
