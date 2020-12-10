@@ -26,7 +26,7 @@ import (
 	"flag"
 	"os"
 
-	"github.com/cgwalters/kubernetes-device-plugins/pkg/pci"
+	"github.com/cgwalters/kvm-device-plugin/pkg/pci"
 	"github.com/kubevirt/device-plugin-manager/pkg/dpm"
 )
 

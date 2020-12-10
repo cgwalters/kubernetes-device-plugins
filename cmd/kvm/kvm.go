@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 
-	"github.com/cgwalters/kubernetes-device-plugins/pkg/kvm"
+	"github.com/cgwalters/kvm-device-plugin/pkg/kvm"
 	"github.com/kubevirt/device-plugin-manager/pkg/dpm"
 )
 

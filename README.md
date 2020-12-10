@@ -1,6 +1,6 @@
 # This repository was archived
 
-Please read https://github.com/cgwalters/kubernetes-device-plugins/issues/64.
+Please read https://github.com/cgwalters/kvm-device-plugin/issues/64.
 
 # Collection of Kubernetes Device Plugins
 

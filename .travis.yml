@@ -1,7 +1,7 @@
 language: go
 
 go: 1.11.x
-go_import_path: github.com/cgwalters/kubernetes-device-plugins
+go_import_path: github.com/cgwalters/kvm-device-plugin
 
 script: make build test docker-build
 

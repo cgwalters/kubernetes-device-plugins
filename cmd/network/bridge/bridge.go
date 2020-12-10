@@ -4,7 +4,7 @@ import (
 	"flag"
 	"os"
 
-	"github.com/cgwalters/kubernetes-device-plugins/pkg/network/bridge"
+	"github.com/cgwalters/kvm-device-plugin/pkg/network/bridge"
 	"github.com/golang/glog"
 	"github.com/kubevirt/device-plugin-manager/pkg/dpm"
 )

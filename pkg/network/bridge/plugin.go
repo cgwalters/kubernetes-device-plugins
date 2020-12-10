@@ -11,7 +11,7 @@ import (
 
 	"sync"
 
-	"github.com/cgwalters/kubernetes-device-plugins/pkg/dockerutils"
+	"github.com/cgwalters/kvm-device-plugin/pkg/dockerutils"
 	"github.com/golang/glog"
 	"github.com/vishvananda/netlink"
 	"github.com/vishvananda/netns"
