@@ -1,104 +1,47 @@
-# This repository was archived
+# Fork of original https://github.com/kubevirt/kubernetes-device-plugins
 
-Please read https://github.com/cgwalters/kvm-device-plugin/issues/64.
+This repository is an updated fork of the original
+https://github.com/kubevirt/kubernetes-device-plugins
+which is now maintained as part of the larger [KubeVirt](https://github.com/kubevirt) project.
 
-# Collection of Kubernetes Device Plugins
+However, for some use cases one just wants "/dev/kvm in pods" and not the full
+KubeVirt system.  Specifically at least for CoreOS, our [coreos-assembler](https://github.com/coreos/coreos-assembler/)
+project is "kubernetes ready" and runs in e.g. OpenShift without special
+privileges, as long as `/dev/kvm` is mounted.
 
-[![Build Status](https://travis-ci.org/kubevirt/kubernetes-device-plugins.svg?branch=master)](https://travis-ci.org/kubevirt/kubernetes-device-plugins)
+You can use this project on bare metal systems, AWS `m5.metal` instances,
+or [GCP](https://cloud.google.com/compute/docs/instances/enable-nested-virtualization-vm-instances).
 
-```
-EARLY STAGE PROJECT
+# Usage
 
-(yes, the logo is literally photo of whiteboard drawing)
-```
-
-![Logo](/docs/logo.jpg)
-
-This repository aims to group various device plugins by providing unified
-handling for common patterns.
-
-## Current Device Plugins
-
-> **Note:** When testing these device plugins ensure to open the feature gate
-> using `kubelet`'s `--feature-gates=DevicePlugins=true`
-
-Each plugin may have it's own build instructions in the linked README.md.
-
-* [VFIO](docs/README.vfio.md)
-* [KVM](docs/README.kvm.md)
-* Network
-  * [Bridge](docs/README.bridge.md)
-
-## Creating Device Plugin
-
-See Device Plugin Manager documentaion on
-https://godoc.org/github.com/kubevirt/device-plugin-manager/pkg/dpm
-
-## Develop
-
-Build all plugins:
+Create a YAML file with the following, then use `kubectl create`.
 
 ```
-make build
-```
-
-Build specific plugins:
-
-```
-make build-vfio
-make build-network-bridge
-```
-
-Test all modules:
-
-```
-make test
-```
-
-Test specific modules:
-
-```
-make test-cmd-vfio
-```
-
-Deploy local Kubernetes cluster:
-
-```
-make cluster-up
-```
-
-Destroy local Kubernetes cluster:
-
-```
-make cluster-down
-```
-
-Build all device plugin images and push them to local Kubernetes cluster registry:
-
-```
-make cluster-sync
-```
-
-Build specific device plugin image and push it to local Kubernetes cluster registry:
-
-```
-make cluster-sync-network-bridge
-```
-
-Access cluster kubectl:
-
-```
-./cluster/kubectl.sh ...
-```
-
-Access cluster node via ssh:
-
-```
-./cluster/cli.sh node01
-```
-
-Run e2e tests (on running cluster):
-
-```
-make functests
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    name: device-plugin-kvm
+  name: device-plugin-kvm
+spec:
+  selector:
+    matchLabels:
+      name: device-plugin-kvm
+  template:
+    metadata:
+      labels:
+        name: device-plugin-kvm
+    spec:
+      containers:
+      - name: device-plugin-kvm
+        image: registry.svc.ci.openshift.org/cgwalters/kvm-device-plugin
+        securityContext:
+          privileged: true
+        volumeMounts:
+          - name: device-plugin
+            mountPath: /var/lib/kubelet/device-plugins
+      volumes:
+        - name: device-plugin
+          hostPath:
+            path: /var/lib/kubelet/device-plugins
 ```
