@@ -2,19 +2,20 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   labels:
-    name: device-plugin-kvm
-  name: device-plugin-kvm
+    name: kvm-device-plugin
+  name: kvm-device-plugin
 spec:
   selector:
     matchLabels:
-      name: device-plugin-kvm
+      name: kvm-device-plugin
   template:
     metadata:
       labels:
-        name: device-plugin-kvm
+        name: kvm-device-plugin
     spec:
+      serviceAccountName: kvm-device-plugin
       containers:
-      - name: device-plugin-kvm
+      - name: kvm-device-plugin
         image: registry.svc.ci.openshift.org/cgwalters/kvm-device-plugin
         securityContext:
           privileged: true
