@@ -63,6 +63,7 @@ func (dpi *KVMDevicePlugin) ListAndWatch(e *pluginapi.Empty, s pluginapi.DeviceP
 	})
 
 	s.Send(&pluginapi.ListAndWatchResponse{Devices: dpi.devs})
+	glog.V(3).Infof("Allocated initial device")
 
 	for {
 		select {
@@ -81,6 +82,7 @@ func (dpi *KVMDevicePlugin) Allocate(ctx context.Context, r *pluginapi.AllocateR
 		ID:     KVMName + strconv.Itoa(dpi.counter),
 		Health: pluginapi.Healthy,
 	})
+	glog.V(3).Infof("Allocating device %d", dpi.counter)
 	dpi.counter += 1
 	dpi.update <- message{}
 
