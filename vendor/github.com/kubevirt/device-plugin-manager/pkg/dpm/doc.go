@@ -13,5 +13,5 @@
 // See Also
 //
 // Repository of this package and some plugins using it can be found on
-// https://github.com/cgwalters/kvm-device-plugin/.
+// https://github.com/kubevirt/kubernetes-device-plugins/.
 package dpm
