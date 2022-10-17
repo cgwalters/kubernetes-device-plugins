@@ -8,7 +8,7 @@ import (
 
 	"github.com/golang/glog"
 	"golang.org/x/net/context"
-	pluginapi "k8s.io/kubernetes/pkg/kubelet/apis/deviceplugin/v1beta1"
+	pluginapi "k8s.io/kubelet/pkg/apis/deviceplugin/v1beta1"
 )
 
 // VFIODevicePlugin represents device plugin implementation with VFIO specific attributes.
@@ -119,6 +119,10 @@ func (dpi *VFIODevicePlugin) Allocate(ctx context.Context, r *pluginapi.Allocate
 		Devices: devices})
 
 	return &response, nil
+}
+
+func (VFIODevicePlugin) GetPreferredAllocation(context.Context, *pluginapi.PreferredAllocationRequest) (*pluginapi.PreferredAllocationResponse, error) {
+	return nil, nil
 }
 
 // GetDevicePluginOptions returns options to be communicated with Device
