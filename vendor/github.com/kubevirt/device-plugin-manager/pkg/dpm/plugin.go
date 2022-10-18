@@ -71,6 +71,7 @@ func (dpi *devicePlugin) StartServer() error {
 	// If we've acquired the lock after waiting for the Start to finish, we don't need to do
 	// anything (as long as the plugin is running).
 	if dpi.Running {
+		glog.V(3).Infof("%s: already running", dpi.Name)
 		return nil
 	}
 
@@ -84,6 +85,7 @@ func (dpi *devicePlugin) StartServer() error {
 	}
 
 	dpi.Running = true
+	glog.V(3).Infof("%s: is now running", dpi.Name)
 
 	return nil
 }
