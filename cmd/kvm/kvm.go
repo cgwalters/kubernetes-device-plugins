@@ -10,7 +10,7 @@ import (
 
 func main() {
 	flag.Parse()
-	glog.V(3).Infof("Starting kvm-device-plugin")
+	glog.V(3).Infof("Starting kvm-device-plugin (new)")
 
 	manager := dpm.NewManager(kvm.KVMLister{})
 	manager.Run()
