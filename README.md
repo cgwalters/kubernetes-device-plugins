@@ -14,6 +14,9 @@ or [GCP](https://cloud.google.com/compute/docs/instances/enable-nested-virtualiz
 
 # Usage
 
+At the current time we are not publishing a pre-built image, so
+you will need to build one and replace the `image` below.
+
 Create a YAML file with the following, then use `kubectl create`.
 
 ```
@@ -34,7 +37,7 @@ spec:
     spec:
       containers:
       - name: device-plugin-kvm
-        image: registry.svc.ci.openshift.org/cgwalters/kvm-device-plugin
+        image: <replace with built image>
         securityContext:
           privileged: true
         volumeMounts:
@@ -45,3 +48,13 @@ spec:
           hostPath:
             path: /var/lib/kubelet/device-plugins
 ```
+
+## Filtering nodes
+
+Note that this daemonset must run with `privileged: true`, but that's
+true of all device plugins.  The code here is very targeted.  However,
+in a multi-tenant environment you may have concerns about applying
+this daemonset everywhere.  It's possible to use e.g. a
+[node selector](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/)
+to only deploy the daemonset on a subset of nodes which require KVM
+if you want to further isolate these workloads.
